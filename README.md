@@ -1,7 +1,7 @@
 # Handwritten Digit Classifier: An ANN vs. CNN Comparison
 This project builds and compares two neural networks: a simple Artificial Neural Network(ANN) and a deep Convoluted Neural Network(CNN), on the MNIST handwritten digits dataset. The goal was to not just build a classifier, but to demonstrate why CNNs are better at analyzing image-based data. 
  
- <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> 
+ **Dataset**: [<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>](https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz) 
  
 ## 1. The Baseline: Artificial Neural Network (ANN)
 First, I established a simple, fully-connected ANN with Dense layers.
