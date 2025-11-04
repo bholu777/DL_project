@@ -4,18 +4,35 @@ This project builds and compares two neural networks: a simple Artificial Neural
  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> 
  
 ## 1. The Baseline: Artificial Neural Network (ANN)
-First, I established a baseline using a simple, fully-connected ANN with Dense layers.
+First, I established a simple, fully-connected ANN with Dense layers.
 
 **Architecture**: `Flatten(input_shape=(28, 28)) -> Dense(128, activation='relu') -> Dense(10, activation='softmax')`
 
-**Final Accuracy**: 97.89% (at 20 epochs)
+**Final Accuracy**: 97.8% (at 20 epochs)
 
-**Analysis**: While 97.89% is a good score, the model's confusion matrix revealed a clear flaw: it struggled with spatially similar digits. For example, it frequently misclassified '9's as '4's (12 errors) and '9's as '7's (8 errors). This is because the Flatten layer destroys all 2D spatial information before the model can even see it.
+### Training & Validation Plots:
+
+These graphs show a very positive training process.
+
+#### Accuracy vs. Epochs:
+
+<img width="600" height="500" alt="Screenshot 2025-11-04 140923" src="https://github.com/user-attachments/assets/e15ab44d-1147-4ab9-b10b-60ddd45d3aec" />
+
+#### Loss vs. Epochs:
+
+<img width="600" height="500" alt="Screenshot 2025-11-04 140856" src="https://github.com/user-attachments/assets/1bdbe203-0681-42c6-b321-dcc5043537fd" />
+
+#### Confusion matrix:
+
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/56a26b61-4990-4649-97ca-f83ea3978501" />
+
+### Analysis: 
+While 97.8% is a good score, the model's confusion matrix revealed a clear flaw: it struggled with spatially similar digits. For example, it frequently misclassified 9's as 4's (12 errors) and 9's as 7's (8 errors). This is because the Flatten layer destroys all 2D spatial information before the model can even see it.
 
 ## 2. The Solution: Convolutional Neural Network (CNN)
 To solve this spatial problem, I built a deep CNN designed to learn 2D patterns. To combat overfitting in this deeper model, I included BatchNormalization and Dropout layers in each block.
 
-**Final Architecture**:
+### Final Architecture:
 
 Layer 1: `Conv2D(64) -> BatchNormalization -> relu -> MaxPooling2D -> Dropout(0.25)`
 
@@ -32,28 +49,28 @@ Output: `Dense(10, 'softmax')`
 ## 3. CNN Results and Analysis
 This model was a significant improvement.
 
-**Final Accuracy**: 98.71% (at 20 epochs)
+**Final Accuracy**: 98.65% (at 20 epochs)
 
-
-### **Training & Validation Plots**
+### Training & Validation Plots:
 
 These graphs show a very healthy training process.
 
 #### Accuracy vs. Epochs:
 
-<img width="600" height="586" alt="Screenshot 2025-11-03 232336" src="https://github.com/user-attachments/assets/dce080f2-8662-459b-81a6-acaf42caf809" />
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/22ae4f05-70ff-456d-a0ea-1fdcf8ec6cbe" />
 
 #### Loss vs. Epochs:
 
-<img width="601" height="530" alt="Screenshot 2025-11-03 232307" src="https://github.com/user-attachments/assets/55dd417d-6acc-424f-8898-eea2229cc19e" />
-
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/7882495c-d7eb-4e12-95ba-f838d57187d8" />
+ 
 **Key Observation**: The validation accuracy (orange line) is consistently higher than the training accuracy (blue line). This is a classic and positive sign of Dropout working correctly. The model is "nerfed" during training (as neurons are randomly dropped) but uses its full power during validation, resulting in better performance. This shows the model is generalizing well and is not overfitting.
 
-### CNN Confusion Matrix
+#### Confusion Matrix:
 
-(This is your new confusion matrix)
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/82e42609-160d-4b46-a805-a6e0cff67514" />
 
-**Analysis**: The CNN's performance is a clear success. The errors that plagued the ANN have been almost completely solved:
+### Analysis: 
+The CNN's performance is a clear success. The errors that plagued the ANN have been almost completely solved:
 
 **'9' vs. '4' Errors**: Dropped from 12 to 4.
 
@@ -63,4 +80,4 @@ The model's primary remaining confusion (e.g., '2' vs. '7', with 11 and 13 error
 
 ## Conclusion
 
-The CNN (98.71%) clearly outperformed the ANN (97.89%). By using Conv2D layers to analyze the 2D image structure before flattening, the model was able to learn robust spatial features (like loops vs. open lines), which directly solved the ANN's main failure points.
+The CNN (98.65%) clearly outperformed the ANN (97.8%). By using Conv2D layers to analyze the 2D image structure before flattening, the model was able to learn robust spatial features (like loops vs. open lines), which directly solved the ANN's main failure points.
